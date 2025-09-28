@@ -1,27 +1,86 @@
-# PatientHub
+# PatientHub - Sistema de Gestión de Pacientes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Aplicación web desarrollada con Angular 16 para la gestión integral de pacientes en el sector salud. Permite realizar operaciones CRUD completas con una interfaz moderna y responsive.
 
-## Development server
+## Características
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- 📝 **CRUD Completo**: Crear, leer, actualizar y eliminar pacientes
+- 🔍 **Filtrado**: Búsqueda por nombre y número de documento
+- 📊 **Paginación**: Navegación eficiente de grandes conjuntos de datos
+- 📤 **Exportación**: Exportar datos a Excel y CSV
 
-## Code scaffolding
+## Instalación y Configuración
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerrequisitos
+- Node.js (v16 o superior)
+- npm o pnpm
 
-## Build
+### Pasos de instalación
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/PuelloJ/PatientHub.git
+   cd PatientHub
+   ```
 
-## Running unit tests
+2. **Instalar dependencias**
+   ```bash
+   npm install
+   # o
+   pnpm install
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. **Ejecutar la aplicación**
+   ```bash
+   npm start
+   # o
+   ng serve
+   ```
 
-## Running end-to-end tests
+4. **Acceder a la aplicación**
+   
+   Navegar a `http://localhost:4200/`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Scripts Disponibles
 
-## Further help
+| Comando | Descripción |
+|---------|-------------|
+| `npm start` | Inicia el servidor de desarrollo |
+| `npm run build` | Construye la aplicación para producción |
+| `npm run watch` | Construye en modo desarrollo con watch |
+| `npm test` | Ejecuta las pruebas unitarias |
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── core/                 # Servicios principales e interceptores
+│   │   ├── interceptors/     # Interceptores HTTP
+│   │   └── services/         # Servicios de negocio
+│   ├── features/             # Módulos de funcionalidades
+│   │   └── patients/         # Módulo de pacientes
+│   ├── models/               # Modelos de datos TypeScript
+│   └── shared/               # Componentes y utilidades compartidas
+└── assets/                   # Recursos estáticos
+```
+
+## 🔧 Configuración del Backend
+
+La aplicación está configurada para conectarse a una API REST en `http://localhost:5000/api/Patient`. Asegúrate de que el backend esté ejecutándose en este puerto.
+
+## 🤝 Contribución
+
+1. Fork del proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+---
+
+Desarrollado con ❤️ por [PuelloJ](https://github.com/PuelloJ) 
