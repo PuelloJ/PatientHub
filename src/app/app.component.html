@@ -1,3 +1,33 @@
-<div class="card flex justify-content-center">
-    <p-button label="Check" icon="pi pi-check"></p-button>
-</div>
+<!-- Toast para mensajes globales -->
+<p-toast position="top-right"></p-toast>
+
+<!-- Dialog de confirmación -->
+<p-confirmDialog></p-confirmDialog>
+
+<!-- Barra de navegación -->
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <h2 style="margin: 0; color: var(--primary-color);">
+      <i class="pi pi-heart" style="margin-right: 0.5rem;"></i>
+      Medical Patients
+    </h2>
+  </div>
+  
+  <div class="p-toolbar-group-end">
+    <a pButton icon="pi pi-users" label="Patients" routerLink="/patients" 
+       class="p-button-text"></a>
+  </div>
+</p-toolbar>
+
+<!-- Contenido principal -->
+<main class="p-4">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Spinner global de carga -->
+<p-progressSpinner 
+  *ngIf="loading$ | async" 
+  styleClass="global-spinner" 
+  strokeWidth="4"
+  animationDuration=".5s">
+</p-progressSpinner>

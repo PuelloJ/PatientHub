@@ -1,2 +1,48 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* PrimeNG Overrides */
+.p-button {
+  margin-right: 0.5rem;
+}
+
+.p-datatable {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Custom Classes */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.error-message {
+  color: #e24c4c;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
