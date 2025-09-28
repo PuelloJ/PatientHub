@@ -91,8 +91,8 @@ export class PatientListComponent implements OnInit {
 
   confirmDelete(patient: Patient): void {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete patient ${patient.firstName} ${patient.lastName}?`,
-      header: 'Confirm Deletion',
+      message: `¿Está seguro de que desea eliminar a ${patient.firstName} ${patient.lastName}?`,
+      header: 'Confirmar Eliminación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.deletePatient(patient.patientId);

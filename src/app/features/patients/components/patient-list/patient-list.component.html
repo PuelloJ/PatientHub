@@ -1,19 +1,19 @@
 <div class="page-header">
   <div>
-    <h1>Patients Management</h1>
+    <h1>PatientsHub</h1>
     <p>Manage your patients efficiently</p>
   </div>
   <div>
     <button
       pButton
       icon="pi pi-plus"
-      label="Add Patient"
+      label="Agregar Paciente"
       (click)="openCreatePatientModal()"
     ></button>
     <button
       pButton
       icon="pi pi-download"
-      label="Export"
+      label="Exportar"
       (click)="openExportModal()"
       class="p-button-secondary"
     ></button>
@@ -24,23 +24,23 @@
   <!-- Filters -->
   <div class="p-fluid grid">
     <div class="field col-12 md:col-4">
-      <label for="nameFilter">Name</label>
+      <label for="nameFilter">Nombre</label>
       <input
         id="nameFilter"
         type="text"
         pInputText
         [(ngModel)]="nameFilter"
-        placeholder="Filter by name..."
+        placeholder="Filtrar por nombre..."
       />
     </div>
     <div class="field col-12 md:col-4">
-      <label for="docFilter">Document Number</label>
+      <label for="docFilter">Número de Documento</label>
       <input
         id="docFilter"
         type="text"
         pInputText
         [(ngModel)]="documentNumberFilter"
-        placeholder="Filter by document number..."
+        placeholder="Filtrar por número de documento..."
       />
     </div>
     <div
@@ -50,13 +50,13 @@
       <button
         pButton
         icon="pi pi-search"
-        label="Search"
+        label="Buscar"
         (click)="applyFilters()"
       ></button>
       <button
         pButton
         icon="pi pi-refresh"
-        label="Clear"
+        label="Limpiar"
         (click)="clearFilters()"
         class="p-button-secondary"
       ></button>
@@ -78,12 +78,12 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Document</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Created At</th>
-        <th width="120px">Actions</th>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>Correo Electrónico</th>
+        <th>Telefono</th>
+        <th>Fecha de Creación</th>
+        <th width="120px">Acciones</th>
       </tr>
     </ng-template>
 
@@ -101,7 +101,7 @@
               icon="pi pi-eye"
               class="p-button-info p-button-sm"
               (click)="openViewPatientModal(patient)"
-              pTooltip="View Patient"
+              pTooltip="Ver Detalles"
               tooltipPosition="top"
             ></button>
             <button
@@ -109,7 +109,7 @@
               icon="pi pi-pencil"
               class="p-button-warning p-button-sm"
               (click)="openEditPatientModal(patient)"
-              pTooltip="Edit Patient"
+              pTooltip="Editar Paciente"
               tooltipPosition="top"
             ></button>
             <button
@@ -117,7 +117,7 @@
               icon="pi pi-trash"
               class="p-button-danger p-button-sm"
               (click)="confirmDelete(patient)"
-              pTooltip="Delete Patient"
+              pTooltip="Eliminar Paciente"
               tooltipPosition="top"
             ></button>
           </div>
@@ -127,15 +127,14 @@
 
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="6" class="text-center">No patients found</td>
+        <td colspan="6" class="text-center">No se encontraron pacientes</td>
       </tr>
     </ng-template>
   </p-table>
 </p-card>
 
-<!-- Export Modal -->
 <p-dialog
-  header="Export Data"
+  header="Exportar Datos"
   [(visible)]="displayExportModal"
   [modal]="true"
   [draggable]="true"
@@ -146,7 +145,7 @@
 >
   <div class="p-fluid">
     <div class="field">
-      <label>Export Options</label>
+      <label>Opciones de Exportación</label>
       <div class="p-field-radiobutton" style="margin-bottom: 0.5rem;">
         <p-radioButton
           id="exportAll"
@@ -154,7 +153,7 @@
           value="all"
           [(ngModel)]="exportOption"
         ></p-radioButton>
-        <label for="exportAll" style="margin-left: 0.5rem;">Export all patients</label>
+        <label for="exportAll" style="margin-left: 0.5rem;">Exportar todos los pacientes</label>
       </div>
       <div class="p-field-radiobutton">
         <p-radioButton
@@ -163,12 +162,12 @@
           value="filtered"
           [(ngModel)]="exportOption"
         ></p-radioButton>
-        <label for="exportFiltered" style="margin-left: 0.5rem;">Export patients created after specific date</label>
+        <label for="exportFiltered" style="margin-left: 0.5rem;">Exportar pacientes creados después de una fecha específica</label>
       </div>
     </div>
     
     <div class="field" *ngIf="exportOption === 'filtered'">
-      <label for="exportDate">Select date</label>
+      <label for="exportDate">Seleccionar fecha</label>
       <p-calendar
         id="exportDate"
         [(ngModel)]="exportDate"
@@ -186,28 +185,27 @@
     <button
       pButton
       icon="pi pi-file-excel"
-      label="Export to Excel"
+      label="Exportar a Excel"
       (click)="exportToExcel()"
       class="p-button-success"
     ></button>
     <button
       pButton
       icon="pi pi-file"
-      label="Export to CSV"
+      label="Exportar a CSV"
       (click)="exportToCSV()"
       class="p-button-help"
     ></button>
     <button
       pButton
       icon="pi pi-times"
-      label="Cancel"
+      label="Cancelar"
       (click)="displayExportModal = false"
       class="p-button-secondary"
     ></button>
   </ng-template>
 </p-dialog>
 
-<!-- Patient Form Modal -->
 <p-dialog
   [header]="modalMode === 'create' ? 'Crear Paciente' : 'Editar Paciente'"
   [(visible)]="displayPatientModal"
@@ -228,7 +226,6 @@
   ></app-patient-form>
 </p-dialog>
 
-<!-- Patient Detail Modal -->
 <p-dialog
   header="Detalles del Paciente"
   [(visible)]="displayDetailModal"
