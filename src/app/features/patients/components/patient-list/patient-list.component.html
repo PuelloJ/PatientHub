@@ -8,7 +8,7 @@
       pButton
       icon="pi pi-plus"
       label="Add Patient"
-      routerLink="/patients/new"
+      (click)="openCreatePatientModal()"
     ></button>
     <button
       pButton
@@ -100,7 +100,7 @@
               pButton
               icon="pi pi-eye"
               class="p-button-info p-button-sm"
-              [routerLink]="['/patients', patient.patientId]"
+              (click)="openViewPatientModal(patient)"
               pTooltip="View Patient"
               tooltipPosition="top"
             ></button>
@@ -108,7 +108,7 @@
               pButton
               icon="pi pi-pencil"
               class="p-button-warning p-button-sm"
-              [routerLink]="['/patients/edit', patient.patientId]"
+              (click)="openEditPatientModal(patient)"
               pTooltip="Edit Patient"
               tooltipPosition="top"
             ></button>
@@ -205,6 +205,46 @@
       class="p-button-secondary"
     ></button>
   </ng-template>
+</p-dialog>
+
+<!-- Patient Form Modal -->
+<p-dialog
+  [header]="modalMode === 'create' ? 'Crear Paciente' : 'Editar Paciente'"
+  [(visible)]="displayPatientModal"
+  [modal]="true"
+  [draggable]="true"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '80vw', maxWidth: '800px', height: '90vh' }"
+  styleClass="patient-modal"
+  appendTo="body"
+>
+  <app-patient-form
+    *ngIf="displayPatientModal"
+    [patient]="selectedPatient"
+    [mode]="modalMode"
+    (patientSaved)="onPatientSaved()"
+    (cancelled)="closePatientModal()"
+  ></app-patient-form>
+</p-dialog>
+
+<!-- Patient Detail Modal -->
+<p-dialog
+  header="Detalles del Paciente"
+  [(visible)]="displayDetailModal"
+  [modal]="true"
+  [draggable]="true"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '70vw', maxWidth: '600px', height: '80vh' }"
+  styleClass="patient-detail-modal"
+  appendTo="body"
+>
+  <app-patient-detail
+    *ngIf="displayDetailModal && selectedPatient"
+    [patient]="selectedPatient"
+    (closed)="closePatientModal()"
+  ></app-patient-detail>
 </p-dialog>
 
 <p-confirmDialog></p-confirmDialog>

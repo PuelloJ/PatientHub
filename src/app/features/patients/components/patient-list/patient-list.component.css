@@ -75,3 +75,13 @@
   background-color: #d32f2f !important;
   border-color: #d32f2f !important;
 }
+
+/* Modal specific styles */
+.patient-modal .p-dialog-content {
+  padding: 0 !important;
+  overflow-y: auto;
+}
+
+.patient-detail-modal .p-dialog-content {
+  padding: 1rem !important;
+}

@@ -23,6 +23,12 @@ export class PatientListComponent implements OnInit {
   exportDate: Date = new Date();
   exportOption: string = 'all';
 
+  // Modal properties
+  displayPatientModal: boolean = false;
+  displayDetailModal: boolean = false;
+  selectedPatient: Patient | null = null;
+  modalMode: 'create' | 'edit' | 'view' = 'create';
+
   constructor(
     private patientService: PatientService,
     private confirmationService: ConfirmationService,
@@ -256,5 +262,35 @@ export class PatientListComponent implements OnInit {
         },
       });
     }
+  }
+
+  // Modal methods
+  openCreatePatientModal(): void {
+    this.modalMode = 'create';
+    this.selectedPatient = null;
+    this.displayPatientModal = true;
+  }
+
+  openEditPatientModal(patient: Patient): void {
+    this.modalMode = 'edit';
+    this.selectedPatient = { ...patient };
+    this.displayPatientModal = true;
+  }
+
+  openViewPatientModal(patient: Patient): void {
+    this.modalMode = 'view';
+    this.selectedPatient = { ...patient };
+    this.displayDetailModal = true;
+  }
+
+  closePatientModal(): void {
+    this.displayPatientModal = false;
+    this.displayDetailModal = false;
+    this.selectedPatient = null;
+  }
+
+  onPatientSaved(): void {
+    this.closePatientModal();
+    this.loadPatients(); // Refresh the list
   }
 }
