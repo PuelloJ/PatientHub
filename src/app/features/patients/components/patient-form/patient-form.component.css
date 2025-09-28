@@ -55,14 +55,3 @@
   align-items: center;
   padding: 2rem;
 }
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .form-grid .field.full-width {
-    grid-column: 1;
-  }
-}

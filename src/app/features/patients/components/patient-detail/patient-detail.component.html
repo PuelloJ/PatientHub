@@ -1,46 +1,27 @@
-<p-card *ngIf="patient">
-  <div class="grid">
-    <div class="col-12 md:col-6">
-      <h3>Información Personal</h3>
-      <div class="field-grid">
-        <div class="field">
-          <label>Tipo de Documento:</label>
-          <span>{{ patient.documentType }}</span>
-        </div>
-        <div class="field">
-          <label>Número de Documento:</label>
-          <span>{{ patient.documentNumber }}</span>
-        </div>
-        <div class="field">
-          <label>Primer Nombre:</label>
-          <span>{{ patient.firstName }}</span>
-        </div>
-        <div class="field">
-          <label>Apellido:</label>
-          <span>{{ patient.lastName }}</span>
-        </div>
-        <div class="field">
-          <label>Fecha de Nacimiento:</label>
-          <span>{{ patient.birthDate | date:'longDate' }}</span>
-        </div>
-      </div>
+<div class="patient-detail-container" *ngIf="patient">
+  <div class="patient-header">
+    <div class="patient-avatar">
+      <i class="pi pi-user"></i>
     </div>
-
-    <div class="col-12 md:col-6">
-      <h3>Información de Contacto</h3>
-      <div class="field-grid">
-        <div class="field">
-          <label>Correo Electrónico:</label>
-          <span>{{ patient.email || '-' }}</span>
-        </div>
-        <div class="field">
-          <label>Número de Teléfono:</label>
-          <span>{{ patient.phoneNumber || '-' }}</span>
-        </div>
-        <div class="field">
-          <label>Fecha de Creación:</label>
-          <span>{{ patient.createdAt | date:'medium' }}</span>
-        </div>
-      </div>
+    <div class="patient-info">
+      <h3>{{ patient.firstName }} {{ patient.lastName }}</h3>
+      <div class="document-info">{{ patient.documentType }}: {{ patient.documentNumber }}</div>
+      <div class="age-info">Nacido el {{ patient.birthDate | date:'longDate' }}</div>
     </div>
   </div>
+
+  <div class="patient-details">
+    <div class="detail-row">
+      <label>Correo Electrónico:</label>
+      <span>{{ patient.email || 'No especificado' }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Teléfono:</label>
+      <span>{{ patient.phoneNumber || 'No especificado' }}</span>
+    </div>
+    <div class="detail-row">
+      <label>Fecha de Registro:</label>
+      <span>{{ patient.createdAt | date:'medium' }}</span>
+    </div>
+  </div>
+</div>
