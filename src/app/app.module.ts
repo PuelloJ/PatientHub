@@ -24,7 +24,6 @@ import { AppComponent } from './app.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
-
 @NgModule({
   declarations: [
     AppComponent
