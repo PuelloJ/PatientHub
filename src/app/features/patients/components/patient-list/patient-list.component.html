@@ -1,0 +1,204 @@
+<div class="page-header">
+  <div>
+    <h1>Patients Management</h1>
+    <p>Manage your patients efficiently</p>
+  </div>
+  <div>
+    <button
+      pButton
+      icon="pi pi-plus"
+      label="Add Patient"
+      routerLink="/patients/new"
+    ></button>
+    <button
+      pButton
+      icon="pi pi-download"
+      label="Export"
+      (click)="openExportModal()"
+      class="p-button-secondary"
+    ></button>
+  </div>
+</div>
+
+<p-card>
+  <!-- Filters -->
+  <div class="p-fluid grid">
+    <div class="field col-12 md:col-4">
+      <label for="nameFilter">Name</label>
+      <input
+        id="nameFilter"
+        type="text"
+        pInputText
+        [(ngModel)]="nameFilter"
+        placeholder="Filter by name..."
+      />
+    </div>
+    <div class="field col-12 md:col-4">
+      <label for="docFilter">Document Number</label>
+      <input
+        id="docFilter"
+        type="text"
+        pInputText
+        [(ngModel)]="documentNumberFilter"
+        placeholder="Filter by document number..."
+      />
+    </div>
+    <div
+      class="field col-12 md:col-4"
+      style="display: flex; align-items: end; gap: 0.5rem"
+    >
+      <button
+        pButton
+        icon="pi pi-search"
+        label="Search"
+        (click)="applyFilters()"
+      ></button>
+      <button
+        pButton
+        icon="pi pi-refresh"
+        label="Clear"
+        (click)="clearFilters()"
+        class="p-button-secondary"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <p-table
+    [value]="patients"
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="pageSize"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    (onLazyLoad)="onPageChange($event)"
+    [rowsPerPageOptions]="[5, 10, 20, 50]"
+    dataKey="patientId"
+    styleClass="p-datatable-gridlines"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Document</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Created At</th>
+        <th width="120px">Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-patient>
+      <tr>
+        <td>{{ patient.documentType }} - {{ patient.documentNumber }}</td>
+        <td>{{ patient.firstName }} {{ patient.lastName }}</td>
+        <td>{{ patient.email || "-" }}</td>
+        <td>{{ patient.phoneNumber || "-" }}</td>
+        <td>{{ patient.createdAt | date : "medium" }}</td>
+        <td>
+          <div class="flex gap-1">
+            <button
+              pButton
+              icon="pi pi-eye"
+              class="p-button-info p-button-sm"
+              [routerLink]="['/patients', patient.patientId]"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-warning p-button-sm"
+              [routerLink]="['/patients/edit', patient.patientId]"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-danger p-button-sm"
+              (click)="confirmDelete(patient)"
+            ></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" class="text-center">No patients found</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<!-- Export Modal -->
+<p-dialog
+  header="Export Data"
+  [(visible)]="displayExportModal"
+  [modal]="true"
+  [draggable]="true"
+  [resizable]="false"
+  [closable]="true"
+  appendTo="body"
+  styleClass="export-modal"
+>
+  <div class="p-fluid">
+    <div class="field">
+      <label>Export Options</label>
+      <div class="p-field-radiobutton" style="margin-bottom: 0.5rem;">
+        <p-radioButton
+          id="exportAll"
+          name="exportOption"
+          value="all"
+          [(ngModel)]="exportOption"
+        ></p-radioButton>
+        <label for="exportAll" style="margin-left: 0.5rem;">Export all patients</label>
+      </div>
+      <div class="p-field-radiobutton">
+        <p-radioButton
+          id="exportFiltered"
+          name="exportOption"
+          value="filtered"
+          [(ngModel)]="exportOption"
+        ></p-radioButton>
+        <label for="exportFiltered" style="margin-left: 0.5rem;">Export patients created after specific date</label>
+      </div>
+    </div>
+    
+    <div class="field" *ngIf="exportOption === 'filtered'">
+      <label for="exportDate">Select date</label>
+      <p-calendar
+        id="exportDate"
+        [(ngModel)]="exportDate"
+        [showTime]="false"
+        dateFormat="yy-mm-dd"
+        appendTo="body"
+        [keepInvalid]="false"
+        [showIcon]="true"
+        [touchUI]="false"
+      ></p-calendar>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      icon="pi pi-file-excel"
+      label="Export to Excel"
+      (click)="exportToExcel()"
+      class="p-button-success"
+    ></button>
+    <button
+      pButton
+      icon="pi pi-file"
+      label="Export to CSV"
+      (click)="exportToCSV()"
+      class="p-button-help"
+    ></button>
+    <button
+      pButton
+      icon="pi pi-times"
+      label="Cancel"
+      (click)="displayExportModal = false"
+      class="p-button-secondary"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>
