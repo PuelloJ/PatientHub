@@ -7,7 +7,7 @@ import {
   PagedResult,
   Patient,
   PatientQueryParameters,
-} from 'src/app/models/pateint.model';
+} from 'src/app/models/patient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class PatientService {
 
   getPatients(
     params: PatientQueryParameters
-  ): Observable<ApiResponse<PagedResult<Patient>>> {
+  ): Observable<PagedResult<Patient>> {
     let httpParams = new HttpParams()
       .set('page', params.page.toString())
       .set('pageSize', params.pageSize.toString());
@@ -36,7 +36,7 @@ export class PatientService {
       httpParams = httpParams.set('documentNumber', params.documentNumber);
     }
 
-    return this.http.get<ApiResponse<PagedResult<Patient>>>(this.apiUrl, {
+    return this.http.get<PagedResult<Patient>>(this.apiUrl, {
       params: httpParams,
     });
   }
@@ -56,8 +56,8 @@ export class PatientService {
     return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${patientId}`);
   }
 
-  getPatientsCreatedAfter(date: Date): Observable<ApiResponse<Patient[]>> {
-    return this.http.get<ApiResponse<Patient[]>>(
+  getPatientsCreatedAfter(date: Date): Observable<Patient[]> {
+    return this.http.get<Patient[]>(
       `${this.apiUrl}/created-after`,
       {
         params: { date: date.toISOString() },
