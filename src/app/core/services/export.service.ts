@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Patient } from 'src/app/models/pateint.model';
+import { Patient } from 'src/app/models/patient.model';
+import * as XLSX from 'xlsx';
 
 
 @Injectable({
@@ -13,10 +14,25 @@ export class ExportService {
   }
 
   exportToExcel(patients: Patient[], filename: string = 'patients.xlsx'): void {
-    // For simplicity, we'll export as CSV for Excel compatibility
-    // In a real scenario, you might use a library like xlsx
-    const excelData = this.convertToCSV(patients);
-    this.downloadFile(excelData, filename, 'application/vnd.ms-excel');
+    const workbook = XLSX.utils.book_new();
+    
+    const excelData = patients.map(patient => ({
+      'ID': patient.patientId,
+      'Document Type': patient.documentType,
+      'Document Number': patient.documentNumber,
+      'First Name': patient.firstName,
+      'Last Name': patient.lastName,
+      'Birth Date': this.formatDate(patient.birthDate),
+      'Phone': patient.phoneNumber || '',
+      'Email': patient.email || '',
+      'Created At': this.formatDate(patient.createdAt)
+    }));
+    
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+    
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Patients');
+    
+    XLSX.writeFile(workbook, filename);
   }
 
   private convertToCSV(patients: Patient[]): string {
@@ -27,10 +43,10 @@ export class ExportService {
       patient.documentNumber,
       patient.firstName,
       patient.lastName,
-      patient.birthDate.toISOString().split('T')[0],
+      this.formatDate(patient.birthDate),
       patient.phoneNumber || '',
       patient.email || '',
-      patient.createdAt.toISOString()
+      this.formatDate(patient.createdAt)
     ]);
 
     const csvContent = [
@@ -39,6 +55,24 @@ export class ExportService {
     ].join('\n');
 
     return csvContent;
+  }
+
+  private formatDate(date: Date | string): string {
+    if (!date) return '';
+    
+    try {
+      const dateObj = typeof date === 'string' ? new Date(date) : date;
+      
+      // Check if the date is valid
+      if (isNaN(dateObj.getTime())) {
+        return '';
+      }
+      
+      return dateObj.toLocaleDateString('es-ES'); // Format: DD/MM/YYYY
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return '';
+    }
   }
 
   private downloadFile(data: string, filename: string, type: string): void {
