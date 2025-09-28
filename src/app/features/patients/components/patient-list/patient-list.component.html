@@ -95,24 +95,30 @@
         <td>{{ patient.phoneNumber || "-" }}</td>
         <td>{{ patient.createdAt | date : "medium" }}</td>
         <td>
-          <div class="flex gap-1">
+          <div class="action-buttons">
             <button
               pButton
               icon="pi pi-eye"
               class="p-button-info p-button-sm"
               [routerLink]="['/patients', patient.patientId]"
+              pTooltip="View Patient"
+              tooltipPosition="top"
             ></button>
             <button
               pButton
               icon="pi pi-pencil"
               class="p-button-warning p-button-sm"
               [routerLink]="['/patients/edit', patient.patientId]"
+              pTooltip="Edit Patient"
+              tooltipPosition="top"
             ></button>
             <button
               pButton
               icon="pi pi-trash"
               class="p-button-danger p-button-sm"
               (click)="confirmDelete(patient)"
+              pTooltip="Delete Patient"
+              tooltipPosition="top"
             ></button>
           </div>
         </td>

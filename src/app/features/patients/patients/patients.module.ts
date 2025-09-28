@@ -17,6 +17,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageModule } from 'primeng/message';
 import { ToolbarModule } from 'primeng/toolbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { PatientsRoutingModule } from './patients-routing.module';
 import { PatientListComponent } from '../components/patient-list/patient-list.component';
@@ -47,7 +48,8 @@ import { PatientListComponent } from '../components/patient-list/patient-list.co
     ProgressSpinnerModule,
     MessageModule,
     ToolbarModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TooltipModule
   ]
 })
 export class PatientsModule { }
