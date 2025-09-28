@@ -1,0 +1,148 @@
+<p-card>
+  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <div class="field">
+        <label for="documentType">Tipo de Documento *</label>
+        <p-dropdown
+          id="documentType"
+          [options]="documentTypes"
+          formControlName="documentType"
+          placeholder="Seleccionar tipo de documento"
+          [showClear]="true"
+        ></p-dropdown>
+        <small
+          *ngIf="f['documentType'].touched && f['documentType'].invalid"
+          class="error-message"
+        >
+          Tipo de documento es requerido
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="documentNumber">Número de Documento *</label>
+        <input
+          id="documentNumber"
+          type="text"
+          pInputText
+          formControlName="documentNumber"
+          placeholder="Ingresar número de documento"
+        />
+        <small
+          *ngIf="f['documentNumber'].touched && f['documentNumber'].invalid"
+          class="error-message"
+        >
+          El número de documento es requerido (máx. 20 caracteres)
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="firstName">Primer Nombre *</label>
+        <input
+          id="firstName"
+          type="text"
+          pInputText
+          formControlName="firstName"
+          placeholder="Ingresar primer nombre"
+        />
+        <small
+          *ngIf="f['firstName'].touched && f['firstName'].invalid"
+          class="error-message"
+        >
+          Primer nombre es requerido (máx. 80 caracteres)
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="lastName">Apellido *</label>
+        <input
+          id="lastName"
+          type="text"
+          pInputText
+          formControlName="lastName"
+          placeholder="Ingresar apellido"
+        />
+        <small
+          *ngIf="f['lastName'].touched && f['lastName'].invalid"
+          class="error-message"
+        >
+          Apellido es requerido (máx. 80 caracteres)
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="birthDate">Fecha de Nacimiento *</label>
+        <p-calendar
+          id="birthDate"
+          formControlName="birthDate"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+          [maxDate]="maxDate"
+          placeholder="Seleccionar fecha de nacimiento"
+          [yearNavigator]="true"
+          [yearRange]="getYearRange()"
+          [monthNavigator]="true"
+          [touchUI]="false"
+          [showButtonBar]="true"
+          appendTo="body"
+        ></p-calendar>
+        <small
+          *ngIf="f['birthDate'].touched && f['birthDate'].invalid"
+          class="error-message"
+        >
+          <span *ngIf="f['birthDate'].errors?.['required']">La fecha de nacimiento es requerida</span>
+          <span *ngIf="f['birthDate'].errors?.['futureDate']">La fecha de nacimiento no puede ser en el futuro</span>
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="phoneNumber">Número de Teléfono</label>
+        <input
+          id="phoneNumber"
+          type="tel"
+          pInputText
+          formControlName="phoneNumber"
+          placeholder="Enter phone number"
+        />
+      </div>
+
+      <div class="field full-width">
+        <label for="email">Correo Electrónico</label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          placeholder="Ingresar correo electrónico"
+        />
+        <small
+          *ngIf="f['email'].touched && f['email'].invalid"
+          class="error-message"
+        >
+          Por favor ingrese una dirección de correo electrónico válida
+        </small>
+      </div>
+    </div>
+
+    <div class="flex justify-content-end gap-2 mt-4">
+      <button
+        pButton
+        icon="pi pi-times"
+        label="Cancelar"
+        type="button"
+        (click)="onCancel()"
+        class="p-button-secondary"
+        [disabled]="submitting"
+      ></button>
+      <button
+        pButton
+        [icon]="isEdit ? 'pi pi-check' : 'pi pi-plus'"
+        [label]="isEdit ? 'Actualizar Paciente' : 'Crear Paciente'"
+        type="submit"
+        [loading]="submitting"
+        [disabled]="patientForm.invalid || submitting"
+      ></button>
+    </div>
+  </form>
+</p-card>
+
+<p-progressSpinner *ngIf="loading" class="loading-spinner"></p-progressSpinner>
