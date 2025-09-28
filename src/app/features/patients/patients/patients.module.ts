@@ -21,12 +21,14 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { PatientsRoutingModule } from './patients-routing.module';
 import { PatientListComponent } from '../components/patient-list/patient-list.component';
+import { PatientFormComponent } from '../components/patient-form/patient-form.component';
+import { PatientDetailComponent } from '../components/patient-detail/patient-detail.component';
 
 @NgModule({
   declarations: [
     PatientListComponent,
-    // PatientFormComponent,
-    // PatientDetailComponent
+    PatientFormComponent,
+    PatientDetailComponent
   ],
   imports: [
     CommonModule,
